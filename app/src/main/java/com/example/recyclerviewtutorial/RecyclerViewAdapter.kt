@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
  * usually more data needs to be displayed
  */
 class RecyclerViewAdapter(
-    private val list: List<Int>     // Constructors are like this, make it a val and you can use it
+    private val list: List<Int>,
+    private val onClick: (Int) -> Unit,    // Constructors are like this, make it a val and you can use it
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -25,6 +26,10 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.textView.text = "Row ${list[position]}"
+
+        holder.itemView.setOnClickListener {
+            onClick(list[position])
+        }
     }
 
     override fun getItemCount(): Int = list.size
